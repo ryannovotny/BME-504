@@ -11,7 +11,7 @@ q2 = 0:180;
 l1 = 3;
 l2 = 2;
 
-%% 1.1: Generate Workspace
+%% Preliminary: Generate Workspace
 % Create All Possible Vector Combinations
 [Q1,Q2] = meshgrid(q1, q2);
 % Restructure to Single Matrix
