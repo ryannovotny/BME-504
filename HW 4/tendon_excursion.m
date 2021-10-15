@@ -41,25 +41,25 @@ exc_3 = (-moment_mtx(:,3)' * workspace')';
 exc_4 = (-moment_mtx(:,4)' * workspace')';
 
 % Plot Muscle Excursions
-figure; plot3(x, y, exc_1);
+figure; plot3(x, y, exc_1, '.');
 title('Muscle 1 Excursions');
 xlabel('X Position (cm)');
 ylabel('Y Position (cm)');
 zlabel('Excursion');
 
-figure; plot3(x, y, exc_2);
+figure; plot3(x, y, exc_2, '.');
 title('Muscle 2 Excursions');
 xlabel('X Position (cm)');
 ylabel('Y Position (cm)');
 zlabel('Excursion');
 
-figure; plot3(x, y, exc_3);
+figure; plot3(x, y, exc_3, '.');
 title('Muscle 3 Excursions');
 xlabel('X Position (cm)');
 ylabel('Y Position (cm)');
 zlabel('Excursion');
 
-figure; plot3(x, y, exc_4);
+figure; plot3(x, y, exc_4, '.');
 title('Muscle 4 Excursions');
 xlabel('X Position (cm)');
 ylabel('Y Position (cm)');
