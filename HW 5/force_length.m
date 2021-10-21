@@ -89,7 +89,7 @@ q = [1.1908 1.83641;
 max_a = NaN(4, 10);
 x_elb = NaN(1,10); y_elb = NaN(1,10);
 x = NaN(1,10); y = NaN(1,10);
-F = NaN(1,10);
+Fx = NaN(1,10); Fy = NaN(1,10);
 
 post_plot = figure;
 hold on;
@@ -113,16 +113,16 @@ for i = 1:length(q)
           0 0 0 (25 * sigmamax);];
 
     % Calculate Joint Torques
-    RF0 = moment_mtx * F0;
+    tau = moment_mtx * F0;
 
     % Calculate Endpoint Wrench
-    H = inv(J') * RF0;
+    H = inv(J') * tau;
 
     % Create Constraint Equations
     hT1 = H(1,:);
     hT2 = H(2,:);
 
-    % Create H Matrix and B Vector Constraints
+    % Create A Matrix and B Vector Constraints
     A = [hT1; -hT1; eye(4); -eye(4)];
     b = [0.001; 0.001; 1; 1; 1; 1; 0; 0; 0; 0];
 
@@ -130,7 +130,8 @@ for i = 1:length(q)
     max_a(:,i) = linprog(-hT2, A, b);
     
     % Compute Force
-    F(i) = H(2,:) * max_a(:,1);
+    Fy(i) = H(2,:) * max_a(:,i);
+    Fx(i) = H(1,:) * max_a(:,i);
     
     % Plot Limb Configurations
     plot([0 x_elb(i)], [0 y_elb(i)], [x_elb(i) x(i)], [y_elb(i) y(i)]);
@@ -161,11 +162,13 @@ xlabel(act_han, 'Muscles');
 title(act_han, 'Muscle Activations for All Postures');
 
 % Plot Force for Each Configurations
-figure;
-plot(F);
+figure; hold on;
+plot(Fy);
+plot(Fx); hold off;
 xlabel('Posture');
 ylabel('Force Magnitude');
 title('Force Magnitude for Each Posture');
+legend('Fy', 'Fx');
 
 %% Max Force Function
 function f_max = max_force(m_x)
