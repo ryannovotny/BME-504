@@ -8,9 +8,11 @@ drop_dir = 'C:\Users\ryano\Downloads\Drop_Foot_EMG.xlsx';
 [~,h_sheet] = xlsfinfo(healthy_dir);
 [~,d_sheet] = xlsfinfo(drop_dir);
 
-% Load Healthy EMG Data
+% Iterate Through Each Healthy Participant
 for i = 1:numel(h_sheet)
+    % Read All Columns from Sheet
     h_emg{i} = readmatrix(healthy_dir, 'Sheet', h_sheet{i});
+    % Remove Time Column
     h_emg{i} = h_emg{i}(:,2:end);
     
     % Max Normalize Data
@@ -18,6 +20,7 @@ for i = 1:numel(h_sheet)
         norm_h_emg{i}(:,j) = h_emg{i}(:,j) / max(h_emg{i}(:,j));
     end
     
+    % Compute Synergies
     for j = 1:size(h_emg{i}, 2)
         [h_syn.VAF{i}] = bootci(250, @extract_synergies, norm_h_emg{i}, j);
         % If Lower Bound of .95 CI > 90%
@@ -30,7 +33,7 @@ for i = 1:numel(h_sheet)
                 h_syn.weight{i}(:,n) = h_syn.weight{i}(:,n)./sum(h_syn.weight{i}(:,n));
             end
             % Synergy Number Found, Exit Loop
-            fprintf('Synergies: %d\n', j);
+            fprintf('Participant %d Synergies: %d\n', i, j);
             break;
         end
     end
@@ -43,25 +46,6 @@ for i = 1:numel(d_sheet)
     % Max Normalize Data
     for j = 1:size(d_emg{i}, 2)
         norm_d_emg{i}(:,j) = d_emg{i}(:,j) / max(d_emg{i}(:,j));
-    end
-end
-
-% Perform NNMF and Determine Synergy Number
-for m = 1:length(muscle_order)
-    % Compute Bootstrap Confidence Interval for NNMF
-    VAF.(cur_struct)(m,:) = bootci(250, @extract_synergies, synergies.(hs).(cur_struct), m);
-    % If Lower Bound of .95 CI > 90%
-    if(VAF.(cur_struct)(m, 1) > 90)
-        [weight.(cur_struct), activ.(cur_struct)] = nnmf(synergies.(hs).(cur_struct), m);
-        % Reconstruct New Signal
-        reconstruct.(cur_struct) = weight.(cur_struct) * activ.(cur_struct);
-        % Force Weights to Add to 1
-        for n = 1:size(weight.(cur_struct), 2)
-            weight.(cur_struct)(:,n) = weight.(cur_struct)(:,n)./sum(weight.(cur_struct)(:,n));
-        end
-        % Synergy Number Found, Exit Loop
-        fprintf('\t%s %s Synergies: %d\n', hs, cur_struct, m);
-        break;
     end
 end
 
