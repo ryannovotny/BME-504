@@ -38,12 +38,12 @@ for sub_idx = 1:length(all_folders)
         s_syn{sub_idx}.P_HS{res_idx}.VAF = part_data.synergies.P_HS.VAF;
         
         % Generate Paretic Residuals
-        s_syn{sub_idx}.P_HS{res_idx}.resid.baseline = s_emg{sub_idx}.P_HS.baseline - s_syn{sub_idx}.P_HS.recon.baseline;
-        s_syn{sub_idx}.P_HS{res_idx}.resid.perturb = s_emg{sub_idx}.P_HS.perturb - s_syn{sub_idx}.P_HS.recon.perturb;
-        s_syn{sub_idx}.P_HS{res_idx}.resid.first_rec = s_emg{sub_idx}.P_HS.first_rec - s_syn{sub_idx}.P_HS.recon.first_rec;
-        s_syn{sub_idx}.P_HS{res_idx}.resid.second_rec = s_emg{sub_idx}.P_HS.second_rec - s_syn{sub_idx}.P_HS.recon.second_rec;
-        s_syn{sub_idx}.P_HS{res_idx}.resid.third_rec = s_emg{sub_idx}.P_HS.third_rec - s_syn{sub_idx}.P_HS.recon.third_rec;
-        s_syn{sub_idx}.P_HS{res_idx}.resid.fourth_rec = s_emg{sub_idx}.P_HS.fourth_rec - s_syn{sub_idx}.P_HS.recon.fourth_rec;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.baseline = s_emg{sub_idx}.P_HS{res_idx}.baseline - s_syn{sub_idx}.P_HS{res_idx}.recon.baseline;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.perturb = s_emg{sub_idx}.P_HS{res_idx}.perturb - s_syn{sub_idx}.P_HS{res_idx}.recon.perturb;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.first_rec = s_emg{sub_idx}.P_HS{res_idx}.first_rec - s_syn{sub_idx}.P_HS{res_idx}.recon.first_rec;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.second_rec = s_emg{sub_idx}.P_HS{res_idx}.second_rec - s_syn{sub_idx}.P_HS{res_idx}.recon.second_rec;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.third_rec = s_emg{sub_idx}.P_HS{res_idx}.third_rec - s_syn{sub_idx}.P_HS{res_idx}.recon.third_rec;
+        s_syn{sub_idx}.P_HS{res_idx}.resid.fourth_rec = s_emg{sub_idx}.P_HS{res_idx}.fourth_rec - s_syn{sub_idx}.P_HS{res_idx}.recon.fourth_rec;
         
         % Copy Non-Paretic EMG Ensemble
         s_emg{sub_idx}.NP_HS{res_idx}.baseline = part_data.synergies.NP_HS.baseline;
@@ -60,12 +60,12 @@ for sub_idx = 1:length(all_folders)
         s_syn{sub_idx}.NP_HS{res_idx}.VAF = part_data.synergies.NP_HS.VAF;
         
         % Generate Non-Paretic Residuals
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.baseline = s_emg{sub_idx}.NP_HS.baseline - s_syn{sub_idx}.NP_HS.recon.baseline;
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.perturb = s_emg{sub_idx}.NP_HS.perturb - s_syn{sub_idx}.NP_HS.recon.perturb;
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.first_rec = s_emg{sub_idx}.NP_HS.first_rec - s_syn{sub_idx}.NP_HS.recon.first_rec;
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.second_rec = s_emg{sub_idx}.NP_HS.second_rec - s_syn{sub_idx}.NP_HS.recon.second_rec;
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.third_rec = s_emg{sub_idx}.NP_HS.third_rec - s_syn{sub_idx}.NP_HS.recon.third_rec;
-        s_syn{sub_idx}.NP_HS{res_idx}.resid.fourth_rec = s_emg{sub_idx}.NP_HS.fourth_rec - s_syn{sub_idx}.NP_HS.recon.fourth_rec;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.baseline = s_emg{sub_idx}.NP_HS{res_idx}.baseline - s_syn{sub_idx}.NP_HS{res_idx}.recon.baseline;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.perturb = s_emg{sub_idx}.NP_HS{res_idx}.perturb - s_syn{sub_idx}.NP_HS{res_idx}.recon.perturb;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.first_rec = s_emg{sub_idx}.NP_HS{res_idx}.first_rec - s_syn{sub_idx}.NP_HS{res_idx}.recon.first_rec;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.second_rec = s_emg{sub_idx}.NP_HS{res_idx}.second_rec - s_syn{sub_idx}.NP_HS{res_idx}.recon.second_rec;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.third_rec = s_emg{sub_idx}.NP_HS{res_idx}.third_rec - s_syn{sub_idx}.NP_HS{res_idx}.recon.third_rec;
+        s_syn{sub_idx}.NP_HS{res_idx}.resid.fourth_rec = s_emg{sub_idx}.NP_HS{res_idx}.fourth_rec - s_syn{sub_idx}.NP_HS{res_idx}.recon.fourth_rec;
         
         % Copy Muscle Order
         s_emg{sub_idx}.muscle_order{res_idx} = part_data.muscle_order;
