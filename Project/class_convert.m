@@ -1,6 +1,6 @@
 clear;
 
-directory = 'C:\Users\rnovotny\Desktop\Parts\';
+directory = 'E:\Users\ryano\Desktop\USC\Research\Projects\ProcessEMG\Balance Study\Perturbations\';
 
 % Get All Folders In Directory
 all_folders = dir(directory);
@@ -34,8 +34,16 @@ for sub_idx = 1:length(all_folders)
         % Copy Paretic Synergies
         s_syn{sub_idx}.P_HS{res_idx}.weight = part_data.synergies.P_HS.weight;
         s_syn{sub_idx}.P_HS{res_idx}.activ = part_data.synergies.P_HS.activ;
-        s_syn{sub_idx}.P_HS{res_idx}.recon = part_data.synergies.P_HS.reconstruct;
+        %s_syn{sub_idx}.P_HS{res_idx}.recon = part_data.synergies.P_HS.reconstruct;
         s_syn{sub_idx}.P_HS{res_idx}.VAF = part_data.synergies.P_HS.VAF;
+        
+        % Generate Reconstructed Signals Using Only 2 Modules
+        s_syn{sub_idx}.P_HS{res_idx}.recon.baseline = s_syn{sub_idx}.P_HS{res_idx}.weight.baseline(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.baseline(1:2,:);
+        s_syn{sub_idx}.P_HS{res_idx}.recon.perturb = s_syn{sub_idx}.P_HS{res_idx}.weight.perturb(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.perturb(1:2,:);
+        s_syn{sub_idx}.P_HS{res_idx}.recon.first_rec = s_syn{sub_idx}.P_HS{res_idx}.weight.first_rec(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.first_rec(1:2,:);
+        s_syn{sub_idx}.P_HS{res_idx}.recon.second_rec = s_syn{sub_idx}.P_HS{res_idx}.weight.second_rec(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.second_rec(1:2,:);
+        s_syn{sub_idx}.P_HS{res_idx}.recon.third_rec = s_syn{sub_idx}.P_HS{res_idx}.weight.third_rec(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.third_rec(1:2,:);
+        s_syn{sub_idx}.P_HS{res_idx}.recon.fourth_rec = s_syn{sub_idx}.P_HS{res_idx}.weight.fourth_rec(:,1:2) * s_syn{sub_idx}.P_HS{res_idx}.activ.fourth_rec(1:2,:);
         
         % Generate Paretic Residuals
         s_syn{sub_idx}.P_HS{res_idx}.resid.baseline = s_emg{sub_idx}.P_HS{res_idx}.baseline - s_syn{sub_idx}.P_HS{res_idx}.recon.baseline;
@@ -56,8 +64,16 @@ for sub_idx = 1:length(all_folders)
         % Copy Non-Paretic Synergies
         s_syn{sub_idx}.NP_HS{res_idx}.weight = part_data.synergies.NP_HS.weight;
         s_syn{sub_idx}.NP_HS{res_idx}.activ = part_data.synergies.NP_HS.activ;
-        s_syn{sub_idx}.NP_HS{res_idx}.recon = part_data.synergies.NP_HS.reconstruct;
+        %s_syn{sub_idx}.NP_HS{res_idx}.recon = part_data.synergies.NP_HS.reconstruct;
         s_syn{sub_idx}.NP_HS{res_idx}.VAF = part_data.synergies.NP_HS.VAF;
+        
+        % Generate Reconstructed Signals Using Only 2 Modules
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.baseline = s_syn{sub_idx}.NP_HS{res_idx}.weight.baseline(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.baseline(1:2,:);
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.perturb = s_syn{sub_idx}.NP_HS{res_idx}.weight.perturb(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.perturb(1:2,:);
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.first_rec = s_syn{sub_idx}.NP_HS{res_idx}.weight.first_rec(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.first_rec(1:2,:);
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.second_rec = s_syn{sub_idx}.NP_HS{res_idx}.weight.second_rec(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.second_rec(1:2,:);
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.third_rec = s_syn{sub_idx}.NP_HS{res_idx}.weight.third_rec(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.third_rec(1:2,:);
+        s_syn{sub_idx}.NP_HS{res_idx}.recon.fourth_rec = s_syn{sub_idx}.NP_HS{res_idx}.weight.fourth_rec(:,1:2) * s_syn{sub_idx}.NP_HS{res_idx}.activ.fourth_rec(1:2,:);
         
         % Generate Non-Paretic Residuals
         s_syn{sub_idx}.NP_HS{res_idx}.resid.baseline = s_emg{sub_idx}.NP_HS{res_idx}.baseline - s_syn{sub_idx}.NP_HS{res_idx}.recon.baseline;
@@ -74,7 +90,7 @@ for sub_idx = 1:length(all_folders)
 end
 
 % Save File
-save_dir = 'C:\Users\rnovotny\Desktop\Resids\';
-filename = 'resid.mat';
+save_dir = 'E:\Users\ryano\Desktop\Resids\';
+filename = 'resid_2_PC.mat';
 cd(save_dir);
 save(filename, 's_emg', 's_syn');
